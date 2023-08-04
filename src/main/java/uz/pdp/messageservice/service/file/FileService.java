@@ -43,7 +43,12 @@ public class FileService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return UploadFileResponse.builder().fileName(fullFileName).build();
+        return UploadFileResponse.builder()
+                .fileName(file.getOriginalFilename())
+                .fileType(file.getContentType())
+                .fileDownloadUri(fileLocation + "\\" + file.getOriginalFilename())
+                .size(file.getSize())
+                .build();
     }
 
     public Path downloadFile(String fileName) {
